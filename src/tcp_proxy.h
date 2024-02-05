@@ -6,6 +6,7 @@
 #include <boost/shared_ptr.hpp>
 #include <queue>
 #include <list>
+#include <boost/noncopyable.hpp>
 
 namespace proxy_ns
 {
@@ -68,7 +69,7 @@ private:
 
 typedef boost::shared_ptr<TcpConnection> TcpConn;
 
-//TcpProxyËùÓÐÐÐÎª¶¼ÓÉµ¥¸öio_serviceÇý¶¯£¬Òò´Ë²»¼ÓËø
+//TcpProxyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½io_serviceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
 class TcpProxy
 	: private boost::noncopyable
 {
@@ -97,7 +98,8 @@ private:
 
 	boost::asio::io_service& getIoService()
 	{
-		return acceptor.get_io_service();
+		return ((boost::asio::io_context&)acceptor.get_executor().context());
+		//return acceptor.get_io_service();
 	}
 
 	friend class TcpConnection;

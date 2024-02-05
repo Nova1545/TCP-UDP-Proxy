@@ -1,8 +1,10 @@
 #include "tcp_proxy.h"
 #include "args.h"
+#include <boost/bind/bind.hpp>
 #include <iostream>
 
 using namespace std;
+using namespace boost::placeholders;
 
 
 namespace proxy_ns
@@ -129,7 +131,7 @@ namespace proxy_ns
 			}
 			boost::asio::async_write(*socket_pair[pair_id], 
 				boost::asio::buffer(buf.get(), buf.get_size()),
-				boost::bind(&TcpConnection::handleWrite, this, pair_id, _1));
+				boost::bind(&TcpConnection::handleWrite, this, pair_id, boost::placeholders::_1));
 			if (proxy.getBandWidth() > 0)
 			{
 				available_bytes_pair[pair_id] -= buf.get_size() + TCP_PACKET_EXTRA_OVERHEAD;

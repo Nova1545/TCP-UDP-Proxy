@@ -3,7 +3,7 @@ DEBUG=0
 
 DIRS := .  
 SOURCE  := $(shell find $(DIRS) -name "*.cpp") 
-PROG := ~/proxy_server
+PROG := ./proxy_server
 
 ifeq ($(DEBUG),1)
 CXXFLAGS_EXTRA=-pg -g -O3
@@ -19,16 +19,16 @@ OBJS    := $(SOURCE:.cpp=$(OBJ_TAIL))
 DEPS    := $(SOURCE:.cpp=$(DEP_TAIL))
 CXX = g++
 CPPFLAGS = -I . 
-CXXFLAGS = -Wall -Werror $(CXXFLAGS_EXTRA)
+CXXFLAGS = -Wall $(CXXFLAGS_EXTRA)
 LDFLAGS = -ldl \
 		-lpthread \
 		-rdynamic \
-		/usr/local/lib/libboost_thread.a \
-		/usr/local/lib/libboost_regex.a \
-		/usr/local/lib/libboost_system.a \
-		/usr/local/lib/libboost_filesystem.a \
-		/usr/local/lib/libboost_date_time.a \
-		/usr/local/lib/libboost_program_options.a \
+		/usr/lib/x86_64-linux-gnu/libboost_thread.a \
+		/usr/lib/x86_64-linux-gnu/libboost_regex.a \
+		/usr/lib/x86_64-linux-gnu/libboost_system.a \
+		/usr/lib/x86_64-linux-gnu/libboost_filesystem.a \
+		/usr/lib/x86_64-linux-gnu/libboost_date_time.a \
+		/usr/lib/x86_64-linux-gnu/libboost_program_options.a \
 		-lrt
 
 $(PROG):	$(OBJS)
